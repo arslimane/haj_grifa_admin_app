@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="الرئيسية"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:id="@+id/home"/>
+    <item android:title="اضف منتج"
+        android:id="@+id/add_product"
+
+        android:icon="@drawable/ic_baseline_add_24"/>
+    <item android:title="الاعدادات"
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_baseline_settings_24"/>
+</menu>

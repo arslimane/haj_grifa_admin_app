@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddProductFragment">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       >
+       <EditText
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:hint="Product name"
+           android:id="@+id/product_title"
+           android:inputType="text"
+           android:padding="20dp"/>
+       <EditText
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:hint="Product comment"
+           android:id="@+id/product_comment"
+           android:inputType="text"
+           android:padding="20dp"/>
+       <EditText
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:hint="Product description"
+           android:id="@+id/product_description"
+           android:inputType="textLongMessage"
+           android:padding="20dp"/>
+       <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:id="@+id/radio_group"
+           android:orientation="horizontal">
+           <RadioButton android:id="@+id/man_r"
+               android:layout_width="wrap_content"
+               android:padding="10dp"
+               android:layout_height="wrap_content"
+               android:text="Men"
+              />
+           <RadioButton android:id="@+id/woman_r"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:padding="10dp"
+               android:text="Women"
+              />
+           <RadioButton android:id="@+id/kids_r"
+               android:layout_width="wrap_content"
+               android:padding="10dp"
+               android:layout_height="wrap_content"
+               android:text="Kids"
+             />
+       </RadioGroup>
+       <EditText
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:hint="Product price"
+           android:id="@+id/product_price"
+           android:inputType="number"
+           android:padding="20dp"/>
+       <ImageView
+           android:layout_width="200dp"
+           android:id="@+id/product_image2"
+           android:layout_height="200dp"
+           android:padding="5dp"
+           android:layout_gravity="center_horizontal">
+       </ImageView>
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:orientation="horizontal">
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Select Photos"
+               android:id="@+id/select_image"
+               android:layout_marginRight="20dp"
+               ></Button>
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Save"
+               android:id="@+id/save_product"
+
+               ></Button>
+       </LinearLayout>
+
+
+   </LinearLayout>
+
+</FrameLayout>

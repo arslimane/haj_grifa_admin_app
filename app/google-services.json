@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "641462395345",
+    "project_id": "lhaj-grifa",
+    "storage_bucket": "lhaj-grifa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641462395345:android:005d41b8654ace4c4a00f0",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641462395345-qogn5mb2jkvvvh9ds3q94j2c4m8ijosc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNRMFyPP0MXLimuUZfp2Nya3pqoKwj1HA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641462395345-qogn5mb2jkvvvh9ds3q94j2c4m8ijosc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
