@@ -115,7 +115,7 @@ public class AddProductFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                saveProduct();
+               uploadImage();
             }
         });
         select.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +149,7 @@ public class AddProductFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                databaseReference.setValue(p);
+                databaseReference.child(p.reference).setValue(p);
                 Toast.makeText(getContext(), "Product added with succuss", Toast.LENGTH_SHORT).show();
             }
             @Override
@@ -188,21 +188,16 @@ public class AddProductFragment extends Fragment {
                 PICK_IMAGE_REQUEST);
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void saveProduct(){
+    public void saveProduct(String path,String id){
         onRadioButtonClicked();
         String title=title_input.getText().toString();
         String description=description_input.getText().toString();
         String comments=comment_input.getText().toString();
         String price= price_input.getText().toString();
         if(!TextUtils.isEmpty(title)&&!TextUtils.isEmpty(description)&&!TextUtils.isEmpty(comments)&&!TextUtils.isEmpty(price)&& ImageSelected){
-            String path= "images/"+ UUID.randomUUID().toString();
-            uploadImage(path);
-            product p=new product(title,tag,comments,path,price);
-            p.description=description;
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
-            p.release_date=now.toString();
-            Log.d("add_product", p.release_date);
+            product p=new product(title,tag,comments,path,price,id,description,now.toString());
             AddProduct(p);
         }else{
             Toast.makeText(getContext(), "Some data are missing", Toast.LENGTH_SHORT).show();
@@ -248,8 +243,12 @@ public class AddProductFragment extends Fragment {
             }
         }
     }
-    private void uploadImage( String path)
+    private void uploadImage()
+
     {
+        String id=UUID.randomUUID().toString();
+        String id2=UUID.randomUUID().toString();
+        String path= "Images/"+ id+"/"+id2 ;
         if (filePath != null) {
 
             // Code for showing progressDialog while uploading
@@ -271,19 +270,27 @@ public class AddProductFragment extends Fragment {
                     .addOnSuccessListener(
                             new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
+                                @RequiresApi(api = Build.VERSION_CODES.O)
                                 @Override
                                 public void onSuccess(
                                         UploadTask.TaskSnapshot taskSnapshot)
                                 {
+                                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            Uri dlUri = uri;
+                                            progressDialog.dismiss();
+                                            Toast
+                                                    .makeText(getContext(),
+                                                            "Image Uploaded!!",
+                                                            Toast.LENGTH_SHORT)
+                                                    .show();
+                                            saveProduct(uri.toString(),id);
 
-                                    // Image uploaded successfully
-                                    // Dismiss dialog
-                                    progressDialog.dismiss();
-                                    Toast
-                                            .makeText(getContext(),
-                                                    "Image Uploaded!!",
-                                                    Toast.LENGTH_SHORT)
-                                            .show();
+                                        }
+                                    });
+
+
                                 }
                             })
 

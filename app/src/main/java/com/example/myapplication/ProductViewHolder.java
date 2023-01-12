@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 public class ProductViewHolder extends RecyclerView.ViewHolder {
     public TextView title;
     public TextView tag;
@@ -30,18 +32,19 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
         title.setText(p.title);
         tag.setText(p.tag);
         switch (p.tag){
-            case "رجال":
+            case "Men":
                 tag.setBackgroundColor(Color.BLUE);
                 break;
-            case "نساء":
+            case "Women":
                 tag.setBackgroundColor(Color.RED);
                 break;
-            case "اطفال":
+            case "kids":
                 tag.setBackgroundColor(Color.parseColor("#FFD700"));
                 break;
         }
         comment.setText(p.comment);
         price.setText(p.price);
+        Picasso.get().load(p.image).into(image);
 
 
     }

@@ -2,16 +2,32 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +35,9 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    ArrayList<product> products;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,22 +94,36 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         View v=getView();
         if(v!=null){
+            firebaseDatabase=FirebaseDatabase.getInstance();
+            databaseReference=firebaseDatabase.getReference("Products");
+            products = new ArrayList<>();
             r=getView().findViewById(R.id.recylce_list);
-            ArrayList<product> list=new ArrayList<product>();
-            list.add(new product("نيو يالانس","نساء","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","نساء","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","رجال","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","اطفال","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","نساء","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","نساء","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","رجال","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","اطفال","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","نساء","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","نساء","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","رجال","متوفر بعدة الوان","test","1200 دج"));
-            list.add(new product("نيو يالانس","اطفال","متوفر بعدة الوان","test","1200 دج"));
             r.setLayoutManager(new GridLayoutManager(getContext(),2, GridLayoutManager.VERTICAL,false));
-            r.setAdapter(new Adapter(list));
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+
+
+                     for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                         product p=postSnapshot.getValue(product.class);
+                        products.add(p);
+                    }
+                    r.setAdapter(new Adapter(products));
+
+                }
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getMessage());
+                }
+            });
+
+
         }
+
+
+
     }
+
 }
